@@ -42,8 +42,14 @@ function noWeakLink() {
   return $http({
     method: 'GET',
     url: '/api/users'
+  }).then(function(response1){
+    firstUser = response1.data[0];
+    return response1;
+  }).then(function(response1){
+    thirdUser = response1.data[2];
+    return response1.data[9];
   })
-  // CODE HERE...
+  
 
 }
 
@@ -74,7 +80,7 @@ function large() {
   return 'My name is ' + this.name + ' and I am very heavy!'
 }
 // CODE HERE...
-
+var boundToElephant = large.bind(elephant);
 
 
 // *************
@@ -88,7 +94,9 @@ function large() {
 // and return the bound function.
 
 // CODE HERE...
-
+function deathStar(capacity, crew){
+  return capacity.bind(crew);
+}
 
 
 // *************
@@ -104,7 +112,11 @@ function large() {
 
 // CODE HERE...
 
-
+function accountingOffice(assets){
+  return function (liabilities){
+    return assets + liabilities;
+  }
+}
 
 // *************
 // * PROBLEM 5 *
@@ -129,7 +141,16 @@ function large() {
 
 // CODE HERE...
 
-
+function forgetter(name){
+    var new2 = [];
+    return function rememberall(item){
+      new2.push(item);
+      return {
+        name: name,
+        remember: new2
+      }
+    }
+}
 
 // *************
 // * PROBLEM 6 *
@@ -156,3 +177,35 @@ function large() {
 // NOTE: Neither hunger nor danger should be able to exceed 100 or drop below 0.
 
 // CODE HERE...
+function frodo (startingHungerValue, startingDangerValue){
+  return {
+    dinnerOverFire: function(){
+      startingDangerValue += 40;
+      startingHungerValue -= 25;
+      if (startingDangerValue > 100){
+        startingDangerValue = 100;
+      }
+      if (startingHungerValue < 0){
+        startingHungerValue = 0;
+      }
+      return {
+          hunger: startingHungerValue,
+          danger: startingDangerValue
+      }
+    },
+    hidingInBush: function(){
+      startingDangerValue -= 20;
+      startingHungerValue += 35;
+      if (startingDangerValue < 0){
+        startingDangerValue = 0;
+      }
+      if (startingHungerValue > 100){
+        startingHungerValue = 100;
+      }
+      return {
+        hunger: startingHungerValue,
+        danger: startingDangerValue
+      }
+    }
+  }
+}
