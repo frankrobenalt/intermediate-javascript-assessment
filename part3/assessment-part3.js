@@ -14,6 +14,15 @@
 
 // CODE HERE...
 
+function callBinding(arr, cb, id){
+    var newnew = '';
+    for (var i=0; i<arr.length; i++){
+        if (arr[i].id === id){
+            newnew = arr[i];
+        }
+    }
+    return cb.call(newnew, 'Trogdor');
+}
 
 
 // *************
@@ -28,7 +37,15 @@
 // return the result of your updateAnimal invocation
 
 // CODE HERE...
-
+function applyBinding(arr, cb, id){
+    var newnew = '';
+    for (var i=0; i<arr.length; i++){
+        if (arr[i].id === id){
+            newnew = arr[i];
+        }
+    }
+    return cb.apply(newnew, ['being majestic', 'eating rainbows']);
+}
 
 
 // *************
@@ -49,6 +66,14 @@ var foo;
 
 // CODE HERE...
 
+function promiseMe(prom){
+    var deffered = prom.defer();
+    setTimeout(function(){
+        deffered.resolve(foo= 'bar');
+    }, 20)
+    return deffered.promise;
+
+}
 
 
 // *************
@@ -64,3 +89,20 @@ var foo;
 // and then resolve the array as you complete your promise.
 
 // CODE HERE...
+function emailList(prom, req){
+
+    var deffered = prom.defer();
+
+    $http.get('/api/users').then(function(response){
+        // console.log(response);
+        var emailsArr = response.data.map(function(cur){
+            return cur.email;
+        });
+        // console.log(emailsArr);
+        deffered.resolve(emailsArr);
+    })
+    return deffered.promise;
+}
+
+
+   
